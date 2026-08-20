@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esra Karagöz - Doğum Günü Sitesi</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: linear-gradient(to right, red, purple, blue);
+      color: white;
+    }
+    h1 {
+      margin-top: 20px;
+      font-size: 2.5em;
+    }
+    .cake {
+      width: 200px;
+      cursor: pointer;
+      margin: 30px auto;
+      display: block;
+    }
+    .gallery {
+      display: none;
+      margin-top: 20px;
+    }
+    .gallery img {
+      width: 150px;
+      margin: 10px;
+      border-radius: 10px;
+    }
+    #heartContainer {
+      display: none;
+      font-size: 40px;
+      color: red;
+      margin-top: 20px;
+      line-height: 1.2;
+    }
+    footer {
+      margin-top:40px;
+      padding:20px;
+      background-color:rgba(0,0,0,0.5);
+      color:white;
+    }
+    footer a {
+      color:white;
+      text-decoration:none;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8em; }
+      .cake { width: 150px; }
+      .gallery img { width: 100px; }
+      #heartContainer { font-size: 25px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Doğum Günün Kutlu Olsun Teyzeciğim 🎂</h1>
+  <img src="pasta.png" alt="Doğum Günü Pastası" class="cake" onclick="showSurprise()">
+
+  <!-- Kalplerden Büyük Kalp -->
+  <div id="heartContainer">
+      ❤️❤️____❤️❤️<br>
+    ❤️❤️❤️❤️❤️❤️❤️<br>
+    ❤️❤️❤️❤️❤️❤️❤️❤️❤️<br>
+    ❤️❤️❤️❤️❤️❤️❤️<br>
+    ❤️❤️❤️❤️❤️<br>
+    ❤️❤️❤️<br>
+    ❤️
+  </div>
+
+  <!-- Fotoğraf Galerisi -->
+  <div class="gallery" id="gallery">
+    <h2>Fotoğraflar 📸</h2>
+    <img src="IMG_20250705_103827.jpg" alt="Fotoğraf 1">
+    <img src="IMG_20250705_103824.jpg" alt="Fotoğraf 2">
+    <img src="IMG_20250705_103815.jpg" alt="Fotoğraf 3">
+    <img src="IMG_20250502_150858.jpg" alt="Fotoğraf 4">
+    <img src="IMG_0277.jpg" alt="Fotoğraf 5">
+    <img src="IMG_0195.jpg" alt="Fotoğraf 6">
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Tasarımcı & Yapımcı: Atlas Asil</p>
+    <p>Ulaşım Bilgileri:</p>
+    <p>Tel: <a href="tel:05010294900">05010294900</a></p>
+    <p>Mail: <a href="mailto:atmn2013atmn@gmail.com">atmn2013atmn@gmail.com</a></p>
+    <p>Made with ❤️ by Atlas</p>
+  </footer>
+
+  <script>
+    function showSurprise() {
+      document.getElementById("heartContainer").style.display = "block";
+      document.getElementById("gallery").style.display = "block";
+    }
+  </script>
+</body>
+</html>
