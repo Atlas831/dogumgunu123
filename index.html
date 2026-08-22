@@ -21,11 +21,14 @@
   input { padding:10px; margin:5px; border-radius:5px; border:none; }
   button { padding:10px 20px; border:none; border-radius:5px; background:#1e3a8a; color:white; cursor:pointer; }
   #visitorList { display:none; margin-top:20px; background:rgba(255,255,255,0.1); padding:15px; border-radius:10px; }
-  /* 3 nokta menü */
-  #menu { display:none; position:absolute; top:10px; right:10px; }
+  /* 3 nokta menü solda */
+  #menu { display:none; position:absolute; top:10px; left:10px; }
   #menu button { background:none; border:none; color:white; font-size:24px; cursor:pointer; }
-  #menuOptions { display:none; position:absolute; top:40px; right:10px; background:#1e3a8a; padding:10px; border-radius:5px; }
+  #menuOptions { display:none; position:absolute; top:40px; left:10px; background:#1e3a8a; padding:10px; border-radius:5px; }
   #menuOptions a { display:block; color:white; text-decoration:none; margin:5px 0; cursor:pointer; }
+  /* Modal */
+  #modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); }
+  #modal img { margin:auto; display:block; max-width:90%; max-height:90%; margin-top:5%; border-radius:10px; }
 </style>
 </head>
 <body>
@@ -45,11 +48,16 @@
   <!-- Fotoğraf Galerisi -->
   <div class="gallery" id="gallery">
     <h2>Fotoğraflarımız 📸</h2>
-    <img src="AIND1279.JPG" alt="Fotoğraf 1">
-    <img src="AJMH7573.JPG" alt="Fotoğraf 2">
-    <img src="EWYI5911.JPG" alt="Fotoğraf 3">
-    <img src="JZYJ6508.JPG" alt="Fotoğraf 4">
-    <img src="SZRO1938.JPG" alt="Fotoğraf 5">
+    <img src="AIND1279.JPG" alt="Fotoğraf 1" onclick="openModal(this.src)">
+    <img src="AJMH7573.JPG" alt="Fotoğraf 2" onclick="openModal(this.src)">
+    <img src="EWYI5911.JPG" alt="Fotoğraf 3" onclick="openModal(this.src)">
+    <img src="JZYJ6508.JPG" alt="Fotoğraf 4" onclick="openModal(this.src)">
+    <img src="SZRO1938.JPG" alt="Fotoğraf 5" onclick="openModal(this.src)">
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" onclick="closeModal()">
+    <img id="modalImg" src="">
   </div>
 
   <!-- Kayıt Formu -->
@@ -92,7 +100,7 @@
     let userIP = null;
     let bannedIPs = [];
 
-    // IP adresini al (ipify API)
+    // IP adresini al
     fetch("https://api.ipify.org?format=json")
       .then(res => res.json())
       .then(data => {
@@ -128,13 +136,12 @@
         localStorage.setItem("registeredIP", userIP);
       }
 
+      const li = document.createElement("li");
+      li.innerText = isim + " " + soyisim + " - Doğum günü: " + dogumgunu;
+      document.getElementById("list").appendChild(li);
+
       if (isim.toLowerCase() === "atlas" && soyisim.toLowerCase() === "asil") {
         specialVisitor = { isim, soyisim, dogumgunu };
-        const li = document.createElement("li");
-        li.innerText = isim + " " + soyisim + " - Doğum günü: " + dogumgunu;
-        document.getElementById("list").appendChild(li);
-
-        // Atlas Asil yetkili giriş → 3 nokta menü açılır
         document.getElementById("menu").style.display = "block";
       }
 
@@ -160,6 +167,11 @@
         document.body.innerHTML = "<h1>Banlandınız ❌</h1>";
       }
     }
-  </script>
-</body>
-</html>
+
+    // Modal aç/kapat
+    function openModal(src){
+      document.getElementById("modalImg").src = src;
+      document.getElementById("modal").style.display = "block";
+    }
+    function closeModal(){
+      document.getElementById("
