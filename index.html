@@ -21,6 +21,11 @@
   input { padding:10px; margin:5px; border-radius:5px; border:none; }
   button { padding:10px 20px; border:none; border-radius:5px; background:#1e3a8a; color:white; cursor:pointer; }
   #visitorList { display:none; margin-top:20px; background:rgba(255,255,255,0.1); padding:15px; border-radius:10px; }
+  /* 3 nokta menü */
+  #menu { display:none; position:absolute; top:10px; right:10px; }
+  #menu button { background:none; border:none; color:white; font-size:24px; cursor:pointer; }
+  #menuOptions { display:none; position:absolute; top:40px; right:10px; background:#1e3a8a; padding:10px; border-radius:5px; }
+  #menuOptions a { display:block; color:white; text-decoration:none; margin:5px 0; }
 </style>
 </head>
 <body>
@@ -52,7 +57,7 @@
     <h2>Kayıt Ol 📋</h2>
     <input type="text" id="isim" placeholder="İsim" required>
     <input type="text" id="soyisim" placeholder="Soyisim" required>
-    <input type="date" id="dogumgunu" required>
+    <input type="text" id="dogumgunu" placeholder="Doğum Tarihi (GG/AA/YYYY)" required>
     <button type="submit">Kaydet</button>
   </form>
   <p id="kayitSonuc"></p>
@@ -61,6 +66,15 @@
   <div id="visitorList">
     <h2>Ziyaretçi Listesi 📋</h2>
     <ul id="list"></ul>
+  </div>
+
+  <!-- 3 Nokta Menü -->
+  <div id="menu">
+    <button onclick="toggleMenu()">⋮</button>
+    <div id="menuOptions">
+      <a href="#">Ziyaretçi Yetki Ver</a>
+      <a href="#">Giriş Kontrolü</a>
+    </div>
   </div>
 
   <!-- Footer -->
@@ -81,7 +95,6 @@
       .then(res => res.json())
       .then(data => {
         userIP = data.ip;
-        // Eğer IP daha önce kayıtlıysa formu gizle
         if(localStorage.getItem("registeredIP") === userIP){
           document.getElementById("kayitForm").style.display = "none";
           document.getElementById("kayitSonuc").innerText = "Zaten kayıtlısınız.";
@@ -102,12 +115,11 @@
       event.preventDefault();
       const isim = document.getElementById("isim").value.trim();
       const soyisim = document.getElementById("soyisim").value.trim();
-      const dogumgunu = document.getElementById("dogumgunu").value;
+      const dogumgunu = document.getElementById("dogumgunu").value.trim();
 
       document.getElementById("kayitSonuc").innerText =
         "Kayıt başarılı: " + isim + " " + soyisim;
 
-      // IP kaydet
       if(userIP){
         localStorage.setItem("registeredIP", userIP);
       }
@@ -117,9 +129,17 @@
         const li = document.createElement("li");
         li.innerText = isim + " " + soyisim + " - Doğum günü: " + dogumgunu;
         document.getElementById("list").appendChild(li);
+
+        // Atlas Asil yetkili giriş → 3 nokta menü açılır
+        document.getElementById("menu").style.display = "block";
       }
 
       document.getElementById("kayitForm").style.display = "none";
+    }
+
+    function toggleMenu(){
+      const menuOptions = document.getElementById("menuOptions");
+      menuOptions.style.display = menuOptions.style.display === "block" ? "none" : "block";
     }
   </script>
 </body>
