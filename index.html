@@ -100,12 +100,21 @@
   <script>
     let clickCount = 0;
     let specialVisitor = null;
-    let userIP = null;
     let bannedIPs = [];
 
-    fetch("https://api.ipify.org?format=json")
-      .then(res => res.json())
-      .then(data => { userIP = data.ip; });
+    // Sayfa açıldığında kayıt kontrolü
+    window.onload = function() {
+      const registered = localStorage.getItem("registeredVisitor");
+      if (registered) {
+        const visitor = JSON.parse(registered);
+        document.getElementById("kayitForm").style.display = "none";
+        document.getElementById("kayitSonuc").innerText =
+          "Zaten kayıtlısınız: " + visitor.isim + " " + visitor.soyisim;
+        if (visitor.isim.toLowerCase() === "atlas" && visitor.soyisim.toLowerCase() === "asil") {
+          document.getElementById("menu").style.display = "block";
+        }
+      }
+    };
 
     function cakeClick() {
       clickCount++;
@@ -125,12 +134,15 @@
       document.getElementById("kayitSonuc").innerText =
         "Kayıt başarılı: " + isim + " " + soyisim;
 
+      const visitor = { isim, soyisim, dogumgunu };
+      localStorage.setItem("registeredVisitor", JSON.stringify(visitor));
+
       const li = document.createElement("li");
       li.innerText = isim + " " + soyisim + " - Doğum günü: " + dogumgunu;
       document.getElementById("list").appendChild(li);
 
       if (isim.toLowerCase() === "atlas" && soyisim.toLowerCase() === "asil") {
-        specialVisitor = { isim, soyisim, dogumgunu };
+        specialVisitor = visitor;
         document.getElementById("menu").style.display = "block";
       }
 
@@ -143,29 +155,4 @@
     }
 
     function showVisitors(){
-      document.getElementById("visitorList").style.display = "block";
-    }
-
-    function clearVisitors(){
-      document.getElementById("list").innerHTML = "";
-    }
-
-    function grantAccess(){
-      alert("Ziyaretçilere erişim verildi ✅");
-    }
-
-    function unbanVisitor(){
-      bannedIPs = [];
-      alert("Ban kaldırıldı ✅");
-    }
-
-    function openModal(src){
-      document.getElementById("modalImg").src = src;
-      document.getElementById("modal").style.display = "block";
-    }
-    function closeModal(){
-      document.getElementById("modal").style.display = "none";
-    }
-  </script>
-</body>
-</html>
+      document.getElementById("visitor
