@@ -30,6 +30,9 @@
   .icon {
     width: 100px;
   }
+  .flip {
+    transform: scaleX(-1); /* Sağdaki silahı ters çevirir */
+  }
   #badge {
     display: none;
     margin-top: 20px;
@@ -61,9 +64,12 @@
   <h1>Doğum Günün Kutlu Olsun Dayıcığım 🎂</h1>
   
   <div class="container">
-    <img src="silah1.png" alt="Silah" class="icon">
+    <!-- Sol silah -->
+    <img src="silah1.png" alt="Sol Silah" class="icon">
+    <!-- Pasta -->
     <img src="pasta.png" alt="Doğum Günü Pastası" class="cake" onclick="showSurprise()">
-    <img src="silah.png" alt="Silah" class="icon">
+    <!-- Sağ silah (ayna efekti) -->
+    <img src="silah1.png" alt="Sağ Silah" class="icon flip">
   </div>
 
   <!-- Bekçi Rozeti -->
@@ -81,6 +87,7 @@
     <img src="SZRO1938.JPG" alt="Fotoğraf 5">
   </div>
 
+  <!-- Footer -->
   <footer>
     <p>Doğum günü çocuğu: Can Karagöz</p>
     <p>Doğum tarihi: 03/09/1988</p>
