@@ -21,11 +21,13 @@
   input { padding:10px; margin:5px; border-radius:5px; border:none; }
   button { padding:10px 20px; border:none; border-radius:5px; background:#1e3a8a; color:white; cursor:pointer; }
   #visitorList { display:none; margin-top:20px; background:rgba(255,255,255,0.1); padding:15px; border-radius:10px; }
-  /* 3 nokta menü solda */
+  /* 3 nokta menü sol tarafta */
   #menu { display:none; position:absolute; top:10px; left:10px; }
   #menu button { background:none; border:none; color:white; font-size:24px; cursor:pointer; }
-  #menuOptions { display:none; position:absolute; top:40px; left:10px; background:#1e3a8a; padding:10px; border-radius:5px; }
-  #menuOptions a { display:block; color:white; text-decoration:none; margin:5px 0; cursor:pointer; }
+  #menuOptions { display:none; background:#0b1d4d; color:white; padding:10px; border-radius:8px; margin-top:5px; }
+  #menuOptions .option { padding:8px; border-bottom:1px solid rgba(255,255,255,0.2); cursor:pointer; }
+  #menuOptions .option:last-child { border-bottom:none; }
+  #menuOptions .option:hover { background:#1e3a8a; }
   /* Modal */
   #modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); }
   #modal img { margin:auto; display:block; max-width:90%; max-height:90%; margin-top:5%; border-radius:10px; }
@@ -80,9 +82,10 @@
   <div id="menu">
     <button onclick="toggleMenu()">⋮</button>
     <div id="menuOptions">
-      <a onclick="showVisitors()">Ziyaretçi Göster</a>
-      <a onclick="clearVisitors()">Erişimi Sil</a>
-      <a onclick="banVisitor()">Banla</a>
+      <div class="option" onclick="showVisitors()">Ziyaretçi Göster</div>
+      <div class="option" onclick="clearVisitors()">Erişimi Sil</div>
+      <div class="option" onclick="grantAccess()">Erişim Ver</div>
+      <div class="option" onclick="unbanVisitor()">Banı Aç</div>
     </div>
   </div>
 
@@ -100,16 +103,12 @@
     let userIP = null;
     let bannedIPs = [];
 
-    // IP adresini al
     fetch("https://api.ipify.org?format=json")
       .then(res => res.json())
       .then(data => {
         userIP = data.ip;
         if(bannedIPs.includes(userIP)){
           document.body.innerHTML = "<h1>Banlandınız ❌</h1>";
-        } else if(localStorage.getItem("registeredIP") === userIP){
-          document.getElementById("kayitForm").style.display = "none";
-          document.getElementById("kayitSonuc").innerText = "Zaten kayıtlısınız.";
         }
       });
 
@@ -117,7 +116,6 @@
       clickCount++;
       document.getElementById("badge").style.display = "block";
       document.getElementById("gallery").style.display = "block";
-
       if (clickCount === 5 && specialVisitor) {
         document.getElementById("visitorList").style.display = "block";
       }
@@ -131,10 +129,6 @@
 
       document.getElementById("kayitSonuc").innerText =
         "Kayıt başarılı: " + isim + " " + soyisim;
-
-      if(userIP){
-        localStorage.setItem("registeredIP", userIP);
-      }
 
       const li = document.createElement("li");
       li.innerText = isim + " " + soyisim + " - Doğum günü: " + dogumgunu;
@@ -161,17 +155,16 @@
       document.getElementById("list").innerHTML = "";
     }
 
-    function banVisitor(){
-      if(userIP){
-        bannedIPs.push(userIP);
-        document.body.innerHTML = "<h1>Banlandınız ❌</h1>";
-      }
+    function grantAccess(){
+      alert("Ziyaretçilere erişim verildi ✅");
     }
 
-    // Modal aç/kapat
+    function unbanVisitor(){
+      bannedIPs = [];
+      alert("Ban kaldırıldı ✅");
+    }
+
     function openModal(src){
       document.getElementById("modalImg").src = src;
       document.getElementById("modal").style.display = "block";
     }
-    function closeModal(){
-      document.getElementById("
