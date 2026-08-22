@@ -5,70 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dayımın Doğum Günü Sitesi</title>
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #0b1d4d; /* Dark Blue */
-    color: white;
-  }
-  h1 {
-    margin-top: 20px;
-    font-size: 2.5em;
-  }
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 30px auto;
-  }
-  .cake {
-    width: 200px;
-    cursor: pointer;
-    margin: 0 20px;
-  }
-  .icon {
-    width: 100px;
-  }
-  .flip {
-    transform: scaleX(-1); /* Sağdaki silahı ters çevirir */
-  }
-  #badge {
-    display: none;
-    margin-top: 20px;
-  }
-  #badge img {
-    width: 120px;
-  }
-  .gallery {
-    display: none;
-    margin-top: 20px;
-  }
-  .gallery img {
-    width: 200px;
-    margin: 10px;
-    border-radius: 10px;
-  }
-  footer {
-    margin-top:40px;
-    padding:20px;
-    background-color:rgba(0,0,0,0.5);
-    color:white;
-  }
-  footer a {
-    color:white;
-  }
+  body { margin:0; font-family:Arial; text-align:center; background:#0b1d4d; color:white; }
+  h1 { margin-top:20px; font-size:2.5em; }
+  .container { display:flex; justify-content:center; align-items:center; margin:30px auto; }
+  .cake { width:200px; cursor:pointer; margin:0 20px; }
+  .icon { width:100px; }
+  .flip { transform:scaleX(-1); }
+  #badge { display:none; margin-top:20px; }
+  #badge img { width:120px; }
+  .gallery { display:none; margin-top:20px; }
+  .gallery img { width:200px; margin:10px; border-radius:10px; cursor:pointer; }
+  footer { margin-top:40px; padding:20px; background:rgba(0,0,0,0.5); color:white; }
+  footer a { color:white; }
+  form { margin-top:30px; }
+  input { padding:10px; margin:5px; border-radius:5px; border:none; }
+  button { padding:10px 20px; border:none; border-radius:5px; background:#1e3a8a; color:white; cursor:pointer; }
+  #visitorList { display:none; margin-top:20px; background:rgba(255,255,255,0.1); padding:15px; border-radius:10px; }
 </style>
 </head>
 <body>
   <h1>Doğum Günün Kutlu Olsun Dayıcığım 🎂</h1>
   
   <div class="container">
-    <!-- Sol silah -->
     <img src="silah1.png" alt="Sol Silah" class="icon">
-    <!-- Pasta -->
-    <img src="pasta.png" alt="Doğum Günü Pastası" class="cake" onclick="showSurprise()">
-    <!-- Sağ silah (ayna efekti) -->
+    <img src="pasta.png" alt="Doğum Günü Pastası" class="cake" onclick="cakeClick()">
     <img src="silah1.png" alt="Sağ Silah" class="icon flip">
   </div>
 
@@ -87,6 +47,22 @@
     <img src="SZRO1938.JPG" alt="Fotoğraf 5">
   </div>
 
+  <!-- Kayıt Formu -->
+  <form id="kayitForm" onsubmit="saveVisitor(event)">
+    <h2>Kayıt Ol 📋</h2>
+    <input type="text" id="isim" placeholder="İsim" required>
+    <input type="text" id="soyisim" placeholder="Soyisim" required>
+    <input type="date" id="dogumgunu" required>
+    <button type="submit">Kaydet</button>
+  </form>
+  <p id="kayitSonuc"></p>
+
+  <!-- Ziyaretçi Listesi -->
+  <div id="visitorList">
+    <h2>Ziyaretçi Listesi 📋</h2>
+    <ul id="list"></ul>
+  </div>
+
   <!-- Footer -->
   <footer>
     <p>Doğum günü çocuğu: Can Karagöz</p>
@@ -96,9 +72,54 @@
   </footer>
 
   <script>
-    function showSurprise() {
+    let clickCount = 0;
+    let specialVisitor = null;
+    let userIP = null;
+
+    // IP adresini al (ipify API)
+    fetch("https://api.ipify.org?format=json")
+      .then(res => res.json())
+      .then(data => {
+        userIP = data.ip;
+        // Eğer IP daha önce kayıtlıysa formu gizle
+        if(localStorage.getItem("registeredIP") === userIP){
+          document.getElementById("kayitForm").style.display = "none";
+          document.getElementById("kayitSonuc").innerText = "Zaten kayıtlısınız.";
+        }
+      });
+
+    function cakeClick() {
+      clickCount++;
       document.getElementById("badge").style.display = "block";
       document.getElementById("gallery").style.display = "block";
+
+      if (clickCount === 5 && specialVisitor) {
+        document.getElementById("visitorList").style.display = "block";
+      }
+    }
+
+    function saveVisitor(event) {
+      event.preventDefault();
+      const isim = document.getElementById("isim").value.trim();
+      const soyisim = document.getElementById("soyisim").value.trim();
+      const dogumgunu = document.getElementById("dogumgunu").value;
+
+      document.getElementById("kayitSonuc").innerText =
+        "Kayıt başarılı: " + isim + " " + soyisim;
+
+      // IP kaydet
+      if(userIP){
+        localStorage.setItem("registeredIP", userIP);
+      }
+
+      if (isim.toLowerCase() === "atlas" && soyisim.toLowerCase() === "asil") {
+        specialVisitor = { isim, soyisim, dogumgunu };
+        const li = document.createElement("li");
+        li.innerText = isim + " " + soyisim + " - Doğum günü: " + dogumgunu;
+        document.getElementById("list").appendChild(li);
+      }
+
+      document.getElementById("kayitForm").style.display = "none";
     }
   </script>
 </body>
