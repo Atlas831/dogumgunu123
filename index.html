@@ -25,7 +25,7 @@
   #menu { display:none; position:absolute; top:10px; right:10px; }
   #menu button { background:none; border:none; color:white; font-size:24px; cursor:pointer; }
   #menuOptions { display:none; position:absolute; top:40px; right:10px; background:#1e3a8a; padding:10px; border-radius:5px; }
-  #menuOptions a { display:block; color:white; text-decoration:none; margin:5px 0; }
+  #menuOptions a { display:block; color:white; text-decoration:none; margin:5px 0; cursor:pointer; }
 </style>
 </head>
 <body>
@@ -72,8 +72,9 @@
   <div id="menu">
     <button onclick="toggleMenu()">⋮</button>
     <div id="menuOptions">
-      <a href="#">Ziyaretçi Yetki Ver</a>
-      <a href="#">Giriş Kontrolü</a>
+      <a onclick="showVisitors()">Ziyaretçi Göster</a>
+      <a onclick="clearVisitors()">Erişimi Sil</a>
+      <a onclick="banVisitor()">Banla</a>
     </div>
   </div>
 
@@ -89,13 +90,16 @@
     let clickCount = 0;
     let specialVisitor = null;
     let userIP = null;
+    let bannedIPs = [];
 
     // IP adresini al (ipify API)
     fetch("https://api.ipify.org?format=json")
       .then(res => res.json())
       .then(data => {
         userIP = data.ip;
-        if(localStorage.getItem("registeredIP") === userIP){
+        if(bannedIPs.includes(userIP)){
+          document.body.innerHTML = "<h1>Banlandınız ❌</h1>";
+        } else if(localStorage.getItem("registeredIP") === userIP){
           document.getElementById("kayitForm").style.display = "none";
           document.getElementById("kayitSonuc").innerText = "Zaten kayıtlısınız.";
         }
@@ -140,6 +144,21 @@
     function toggleMenu(){
       const menuOptions = document.getElementById("menuOptions");
       menuOptions.style.display = menuOptions.style.display === "block" ? "none" : "block";
+    }
+
+    function showVisitors(){
+      document.getElementById("visitorList").style.display = "block";
+    }
+
+    function clearVisitors(){
+      document.getElementById("list").innerHTML = "";
+    }
+
+    function banVisitor(){
+      if(userIP){
+        bannedIPs.push(userIP);
+        document.body.innerHTML = "<h1>Banlandınız ❌</h1>";
+      }
     }
   </script>
 </body>
