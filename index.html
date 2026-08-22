@@ -5,40 +5,88 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dayımın Doğum Günü Sitesi</title>
 <style>
-  body { margin:0; font-family:Arial; text-align:center; background:#0b1d4d; color:white; }
-  h1 { margin-top:20px; font-size:2.5em; }
-  .container { display:flex; justify-content:center; align-items:center; margin:30px auto; }
-  .cake { width:200px; cursor:pointer; margin:0 20px; }
-  .icon { width:100px; }
-  .flip { transform:scaleX(-1); }
-  #badge { display:none; margin-top:20px; }
-  #badge img { width:120px; }
-  .gallery { display:none; margin-top:20px; }
-  .gallery img { width:200px; margin:10px; border-radius:10px; cursor:pointer; }
-  footer { margin-top:40px; padding:20px; background:rgba(0,0,0,0.5); color:white; }
-  footer a { color:white; }
-  form { margin-top:30px; }
-  input { padding:10px; margin:5px; border-radius:5px; border:none; }
-  button { padding:10px 20px; border:none; border-radius:5px; background:#1e3a8a; color:white; cursor:pointer; }
-  #visitorList { display:none; margin-top:20px; background:rgba(255,255,255,0.1); padding:15px; border-radius:10px; }
-  /* 3 nokta menü sol tarafta */
-  #menu { display:none; position:absolute; top:10px; left:10px; }
-  #menu button { background:none; border:none; color:white; font-size:24px; cursor:pointer; }
-  #menuOptions { display:none; background:#0b1d4d; color:white; padding:10px; border-radius:8px; margin-top:5px; }
-  #menuOptions .option { padding:8px; border-bottom:1px solid rgba(255,255,255,0.2); cursor:pointer; }
-  #menuOptions .option:last-child { border-bottom:none; }
-  #menuOptions .option:hover { background:#1e3a8a; }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #0b1d4d; /* Dark Blue */
+    color: white;
+  }
+  h1 {
+    margin-top: 20px;
+    font-size: 2.5em;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+  }
+  .cake {
+    width: 200px;
+    cursor: pointer;
+    margin: 0 20px;
+  }
+  .icon {
+    width: 100px;
+  }
+  .flip {
+    transform: scaleX(-1); /* Sağdaki silahı ters çevirir */
+  }
+  #badge {
+    display: none;
+    margin-top: 20px;
+  }
+  #badge img {
+    width: 120px;
+  }
+  .gallery {
+    display: none;
+    margin-top: 20px;
+  }
+  .gallery img {
+    width: 200px;
+    margin: 10px;
+    border-radius: 10px;
+    cursor: pointer; /* Tıklanabilir */
+  }
+  footer {
+    margin-top:40px;
+    padding:20px;
+    background-color:rgba(0,0,0,0.5);
+    color:white;
+  }
+  footer a {
+    color:white;
+  }
   /* Modal */
-  #modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); }
-  #modal img { margin:auto; display:block; max-width:90%; max-height:90%; margin-top:5%; border-radius:10px; }
+  #modal {
+    display:none;
+    position:fixed;
+    z-index:1000;
+    left:0; top:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.8);
+  }
+  #modal img {
+    margin:auto;
+    display:block;
+    max-width:90%;
+    max-height:90%;
+    margin-top:5%;
+    border-radius:10px;
+  }
 </style>
 </head>
 <body>
   <h1>Doğum Günün Kutlu Olsun Dayıcığım 🎂</h1>
   
   <div class="container">
+    <!-- Sol silah -->
     <img src="silah1.png" alt="Sol Silah" class="icon">
-    <img src="pasta.png" alt="Doğum Günü Pastası" class="cake" onclick="cakeClick()">
+    <!-- Pasta -->
+    <img src="pasta.png" alt="Doğum Günü Pastası" class="cake" onclick="showSurprise()">
+    <!-- Sağ silah (ayna efekti) -->
     <img src="silah1.png" alt="Sağ Silah" class="icon flip">
   </div>
 
@@ -62,33 +110,6 @@
     <img id="modalImg" src="">
   </div>
 
-  <!-- Kayıt Formu -->
-  <form id="kayitForm" onsubmit="saveVisitor(event)">
-    <h2>Kayıt Ol 📋</h2>
-    <input type="text" id="isim" placeholder="İsim" required>
-    <input type="text" id="soyisim" placeholder="Soyisim" required>
-    <input type="text" id="dogumgunu" placeholder="Doğum Tarihi (GG/AA/YYYY)" required>
-    <button type="submit">Kaydet</button>
-  </form>
-  <p id="kayitSonuc"></p>
-
-  <!-- Ziyaretçi Listesi -->
-  <div id="visitorList">
-    <h2>Ziyaretçi Listesi 📋</h2>
-    <ul id="list"></ul>
-  </div>
-
-  <!-- 3 Nokta Menü -->
-  <div id="menu">
-    <button onclick="toggleMenu()">⋮</button>
-    <div id="menuOptions">
-      <div class="option" onclick="showVisitors()">Ziyaretçi Göster</div>
-      <div class="option" onclick="clearVisitors()">Erişimi Sil</div>
-      <div class="option" onclick="grantAccess()">Erişim Ver</div>
-      <div class="option" onclick="unbanVisitor()">Banı Aç</div>
-    </div>
-  </div>
-
   <!-- Footer -->
   <footer>
     <p>Doğum günü çocuğu: Can Karagöz</p>
@@ -98,61 +119,19 @@
   </footer>
 
   <script>
-    let clickCount = 0;
-    let specialVisitor = null;
-    let bannedIPs = [];
-
-    // Sayfa açıldığında kayıt kontrolü
-    window.onload = function() {
-      const registered = localStorage.getItem("registeredVisitor");
-      if (registered) {
-        const visitor = JSON.parse(registered);
-        document.getElementById("kayitForm").style.display = "none";
-        document.getElementById("kayitSonuc").innerText =
-          "Zaten kayıtlısınız: " + visitor.isim + " " + visitor.soyisim;
-        if (visitor.isim.toLowerCase() === "atlas" && visitor.soyisim.toLowerCase() === "asil") {
-          document.getElementById("menu").style.display = "block";
-        }
-      }
-    };
-
-    function cakeClick() {
-      clickCount++;
+    function showSurprise() {
       document.getElementById("badge").style.display = "block";
       document.getElementById("gallery").style.display = "block";
-      if (clickCount === 5 && specialVisitor) {
-        document.getElementById("visitorList").style.display = "block";
-      }
     }
 
-    function saveVisitor(event) {
-      event.preventDefault();
-      const isim = document.getElementById("isim").value.trim();
-      const soyisim = document.getElementById("soyisim").value.trim();
-      const dogumgunu = document.getElementById("dogumgunu").value.trim();
-
-      document.getElementById("kayitSonuc").innerText =
-        "Kayıt başarılı: " + isim + " " + soyisim;
-
-      const visitor = { isim, soyisim, dogumgunu };
-      localStorage.setItem("registeredVisitor", JSON.stringify(visitor));
-
-      const li = document.createElement("li");
-      li.innerText = isim + " " + soyisim + " - Doğum günü: " + dogumgunu;
-      document.getElementById("list").appendChild(li);
-
-      if (isim.toLowerCase() === "atlas" && soyisim.toLowerCase() === "asil") {
-        specialVisitor = visitor;
-        document.getElementById("menu").style.display = "block";
-      }
-
-      document.getElementById("kayitForm").style.display = "none";
+    function openModal(src){
+      document.getElementById("modalImg").src = src;
+      document.getElementById("modal").style.display = "block";
     }
 
-    function toggleMenu(){
-      const menuOptions = document.getElementById("menuOptions");
-      menuOptions.style.display = menuOptions.style.display === "block" ? "none" : "block";
+    function closeModal(){
+      document.getElementById("modal").style.display = "none";
     }
-
-    function showVisitors(){
-      document.getElementById("visitor
+  </script>
+</body>
+</html>
