@@ -30,7 +30,7 @@
       width: 150px;
       margin: 10px;
       border-radius: 10px;
-      cursor: pointer; /* Fotoğraflar tıklanabilir */
+      cursor: pointer;
     }
     #heartContainer {
       display: none;
@@ -38,6 +38,7 @@
       color: red;
       margin-top: 20px;
       line-height: 1.2;
+      white-space: pre; /* boşlukları korur */
     }
     footer {
       margin-top:40px;
@@ -78,24 +79,24 @@
   <h1>Doğum Günün Kutlu Olsun Teyzeciğim Esra Karagöz 🎂</h1>
   <img src="pasta.png" alt="Doğum Günü Pastası" class="cake" onclick="showSurprise()">
 
-  <!-- Kalplerden Büyük Kalp -->
+  <!-- Kalplerden Büyük Kalp (eski düzen) -->
   <div id="heartContainer">
-    ❤️ ❤️   ❤️ ❤️<br>
-    ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️<br>
-    ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️<br>
-    ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️<br>
-    ❤️ ❤️ ❤️ ❤️ ❤️<br>
+    ❤️   ❤️<br>
+   ❤️ ❤️ ❤️ ❤️ ❤️<br>
+  ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️<br>
+   ❤️ ❤️ ❤️ ❤️ ❤️<br>
     ❤️ ❤️ ❤️<br>
-    ❤️
+     ❤️ ❤️<br>
+      ❤️
   </div>
 
   <!-- Fotoğraf Galerisi -->
   <div class="gallery" id="gallery">
     <h2>Fotoğraflarımız 📸</h2>
-    <img src="IMG_2025075_103827.jpg" alt="Fotoğraf 1" onclick="openModal(this.src)">
-    <img src="IMG_2025075_103824.jpg" alt="Fotoğraf 2" onclick="openModal(this.src)">
-    <img src="IMG_2025075_103815.jpg" alt="Fotoğraf 3" onclick="openModal(this.src)">
-    <img src="IMG_20250502_150858.jpg" alt="Fotoğraf 4" onclick="openModal(this.src)">
+    <img src="IMG_20250502_150858.jpg" alt="Fotoğraf 1" onclick="openModal(this.src)">
+    <img src="IMG_20250705_103815.jpg" alt="Fotoğraf 2" onclick="openModal(this.src)">
+    <img src="IMG_20250705_103824.jpg" alt="Fotoğraf 3" onclick="openModal(this.src)">
+    <img src="IMG_20250705_103827.jpg" alt="Fotoğraf 4" onclick="openModal(this.src)">
   </div>
 
   <!-- Modal -->
