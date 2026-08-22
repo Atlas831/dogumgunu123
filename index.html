@@ -16,11 +16,19 @@
     margin-top: 20px;
     font-size: 2.5em;
   }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+  }
   .cake {
     width: 200px;
     cursor: pointer;
-    margin: 30px auto;
-    display: block;
+    margin: 0 20px;
+  }
+  .icon {
+    width: 100px;
   }
   #badge {
     display: none;
@@ -38,11 +46,25 @@
     margin: 10px;
     border-radius: 10px;
   }
+  footer {
+    margin-top:40px;
+    padding:20px;
+    background-color:rgba(0,0,0,0.5);
+    color:white;
+  }
+  footer a {
+    color:white;
+  }
 </style>
 </head>
 <body>
   <h1>Doğum Günün Kutlu Olsun Dayıcığım 🎂</h1>
-  <img src="pasta.png" alt="Doğum Günü Pastası" class="cake" onclick="showSurprise()">
+  
+  <div class="container">
+    <img src="silah.png" alt="Silah" class="icon">
+    <img src="pasta.png" alt="Doğum Günü Pastası" class="cake" onclick="showSurprise()">
+    <img src="silah.png" alt="Silah" class="icon">
+  </div>
 
   <!-- Bekçi Rozeti -->
   <div id="badge">
@@ -58,6 +80,11 @@
     <img src="JZYJ6508.JPG" alt="Fotoğraf 4">
     <img src="SZRO1938.JPG" alt="Fotoğraf 5">
   </div>
+
+  <footer>
+    <p>Tasarımcı & Yapımcı: Atlas Asil</p>
+    <p>Mail: <a href="mailto:atmn2013atmn@gmail.com">atmn2013atmn@gmail.com</a></p>
+  </footer>
 
   <script>
     function showSurprise() {
