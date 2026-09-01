@@ -102,7 +102,7 @@
     <img src="rozet.png" alt="Bekçi Rozeti">
   </div>
 
-  <!-- Fotoğraf Galerisi (4 fotoğraf) -->
+  <!-- Fotoğraf Galerisi -->
   <div class="gallery" id="gallery">
     <h2>Fotoğraflarımız 📸</h2>
     <img src="AIND1279.JPG" alt="Fotoğraf 1" onclick="openModal(this.src)">
@@ -123,4 +123,58 @@
   <footer>
     <p>Doğum günü çocuğu: Can Karagöz</p>
     <p>Doğum tarihi: 03/09/1988</p>
-    <p>Tasarımcı & Yapımcı: Atlas
+    <p>Tasarımcı & Yapımcı: Atlas Asil</p>
+    <p>Mail: <a href="mailto:atmn2013atmn@gmail.com">atmn2013atmn@gmail.com</a></p>
+  </footer>
+
+  <script>
+    function showSurprise() {
+      // Nah işaretini gizle
+      document.getElementById("nahBtn").style.display = "none";
+
+      // Pasta ve silahları göster
+      document.getElementById("cakeContainer").style.display = "flex";
+
+      // Rozet ve galeri aç
+      document.getElementById("badge").style.display = "block";
+      document.getElementById("gallery").style.display = "block";
+
+      // Ses dosyasını çal
+      var audio = new Audio("dogumgunu.mp3");
+      audio.play();
+
+      // Mesajları sırayla göster
+      const messages = [
+        "Can Karagöz",
+        "Doğum günün",
+        "Kutlu olsun 🎂"
+      ];
+      const box = document.getElementById("messageBox");
+      box.innerHTML = ""; 
+      let i = 0;
+
+      function showNext() {
+        if (i < messages.length) {
+          const span = document.createElement("div");
+          span.textContent = messages[i];
+          span.classList.add("fade-in");
+          box.appendChild(span);
+          i++;
+          setTimeout(showNext, 2000);
+        }
+      }
+
+      showNext();
+    }
+
+    function openModal(src){
+      document.getElementById("modalImg").src = src;
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal(){
+      document.getElementById("modal").style.display = "none";
+    }
+  </script>
+</body>
+</html>
