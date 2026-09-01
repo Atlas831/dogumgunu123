@@ -82,13 +82,33 @@
     border: 5px solid white;
     border-radius: 10px;
   }
+
+  /* 📱 Telefon için */
+  @media (max-width: 768px) {
+    h1 { font-size: 1.8em; }
+    .nah { width: 80px; }
+    .cake { width: 150px; }
+    .icon { width: 70px; }
+    .gallery img { width: 120px; }
+    #messageBox { font-size: 1.5em; }
+  }
+
+  /* 💻 PC için */
+  @media (min-width: 769px) {
+    h1 { font-size: 3em; }
+    .nah { width: 150px; }
+    .cake { width: 250px; }
+    .icon { width: 120px; }
+    .gallery img { width: 250px; }
+    #messageBox { font-size: 2.5em; }
+  }
 </style>
 </head>
 <body>
   <h1>Doğum Günün Kutlu Olsun Dayıcığım 🎂</h1>
 
   <!-- Nah işareti -->
-  <img id="nahBtn" src="nah.jpg" alt="Nah İşareti" class="nah" onclick="showSurprise()">
+  <img id="nahBtn" src="nah.jpg" alt="Nah İşareti" class="nah">
 
   <!-- Pasta ve Silahlar -->
   <div class="container" id="cakeContainer">
@@ -128,27 +148,19 @@
   </footer>
 
   <script>
+    // Nah butonuna tıklama olayı
+    document.getElementById("nahBtn").addEventListener("click", showSurprise);
+
     function showSurprise() {
-      // Nah işaretini gizle
       document.getElementById("nahBtn").style.display = "none";
-
-      // Pasta ve silahları göster
       document.getElementById("cakeContainer").style.display = "flex";
-
-      // Rozet ve galeri aç
       document.getElementById("badge").style.display = "block";
       document.getElementById("gallery").style.display = "block";
 
-      // Ses dosyasını çal
       var audio = new Audio("dogumgunu.mp3");
       audio.play();
 
-      // Mesajları sırayla göster
-      const messages = [
-        "Can Karagöz",
-        "Doğum günün",
-        "Kutlu olsun 🎂"
-      ];
+      const messages = ["Can Karagöz","Doğum günün","Kutlu olsun 🎂"];
       const box = document.getElementById("messageBox");
       box.innerHTML = ""; 
       let i = 0;
@@ -163,7 +175,6 @@
           setTimeout(showNext, 2000);
         }
       }
-
       showNext();
     }
 
