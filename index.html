@@ -11,83 +11,23 @@
     text-align: center;
     background-color: #0b1d4d;
     color: white;
+    font-size: 1.5em; /* tüm yazılar 1.5x büyütüldü */
   }
-  h1 { margin-top: 20px; font-size: 2.5em; }
-  .nah { margin-top: 50px; cursor: pointer; }
+  h1 { margin-top: 20px; font-size: 3.5em; }
+  .nah { margin-top: 50px; width: 300px; cursor: pointer; }
   .container { display: none; justify-content: center; align-items: center; margin: 30px auto; }
-  .cake { margin: 0 20px; }
-  .icon { }
+  .cake { width: 375px; margin: 0 30px; }
+  .icon { width: 180px; }
   .flip { transform: scaleX(-1); }
-  #badge { display: none; margin-top: 20px; }
-  .gallery { display: none; margin-top: 20px; }
-  .gallery img { margin: 10px; border-radius: 10px; cursor: pointer; }
-  #messageBox { margin-top: 40px; font-weight: bold; min-height: 50px; }
+  #badge { display: none; margin-top: 30px; }
+  #badge img { width: 180px; }
+  .gallery { display: none; margin-top: 30px; }
+  .gallery img { width: 450px; margin: 15px; border-radius: 15px; cursor: pointer; }
+  #messageBox { margin-top: 60px; font-size: 3em; font-weight: bold; min-height: 75px; }
   .fade-in { animation: fadeIn 1s ease-in forwards; }
   @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
   #modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); justify-content:center; align-items:center; }
-  #modal img { max-width:90%; max-height:90%; border:5px solid white; border-radius:10px; }
-
-  /* 📱 Telefon dikey */
-  @media screen and (max-width: 768px) and (orientation: portrait) {
-    .nah { width: 220px; }
-    .cake { width: 180px; }
-    .icon { width: 80px; }
-    .gallery img { width: 160px; }
-    #messageBox { font-size: 1.5em; }
-  }
-
-  /* 📱 Telefon yatay */
-  @media screen and (max-width: 768px) and (orientation: landscape) {
-    .nah { width: 180px; }
-    .cake { width: 150px; }
-    .icon { width: 70px; }
-    .gallery img { width: 140px; }
-    #messageBox { font-size: 1.3em; }
-  }
-
-  /* 💻 PC normal */
-  @media (min-width: 769px) {
-    .nah { width: 200px; }
-    .cake { width: 250px; }
-    .icon { width: 120px; }
-    .gallery img { width: 300px; }
-    #messageBox { font-size: 2em; }
-  }
-
-  /* 💻 PC telefon modu (class eklenince) */
-  body.phone-mode .nah { width: 220px; }
-  body.phone-mode .cake { width: 180px; }
-  body.phone-mode .icon { width: 80px; }
-  body.phone-mode .gallery img { width: 160px; }
-  body.phone-mode #messageBox { font-size: 1.5em; }
-
-  /* Sağ alt köşedeki butonlar */
-  #modeButtons {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  #modeButtons button {
-    display: flex;
-    align-items: center;
-    background: #333;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    cursor: pointer;
-  }
-  #modeButtons button .icon {
-    background: red;
-    color: white;
-    font-weight: bold;
-    padding: 5px;
-    margin-right: 8px;
-    border-radius: 4px;
-  }
+  #modal img { max-width:90%; max-height:90%; border:7px solid white; border-radius:15px; }
 </style>
 </head>
 <body>
@@ -133,12 +73,6 @@
     <p>Mail: <a href="mailto:atmn2013atmn@gmail.com">atmn2013atmn@gmail.com</a></p>
   </footer>
 
-  <!-- Sağ alt köşedeki seçim butonları -->
-  <div id="modeButtons">
-    <button onclick="setNormalMode()"><span class="icon">💻</span> Normal Görünüm</button>
-    <button onclick="setPhoneMode()"><span class="icon">📱</span> Telefon Görünümü</button>
-  </div>
-
   <script>
     // Nah butonuna tıklama olayı
     document.getElementById("nahBtn").addEventListener("click", showSurprise);
@@ -177,14 +111,6 @@
 
     function closeModal(){
       document.getElementById("modal").style.display = "none";
-    }
-
-    // Görünüm değiştirme
-    function setNormalMode(){
-      document.body.classList.remove("phone-mode");
-    }
-    function setPhoneMode(){
-      document.body.classList.add("phone-mode");
     }
   </script>
 </body>
